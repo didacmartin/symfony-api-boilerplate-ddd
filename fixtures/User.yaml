@@ -1,0 +1,13 @@
+parameters:
+        hash: '$2y$13$b6Q54t/g50Buw9WvFLr0POfR0aW6r9Y9pu1S5wjfLnihYsozfaDde'
+        roles: ['ROLE_ADMIN']
+App\User\Domain\Model\User:
+        User-0:
+                __construct:
+                        id: <uuid()>
+                        name: 'Peter'
+                        email: 'test@test.es'
+                        address: 'test'
+                        age: 22
+                        password: <{hash}>
+                        roles: <{roles}>

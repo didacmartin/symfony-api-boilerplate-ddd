@@ -1,0 +1,43 @@
+doctrine:
+    dbal:
+        default_connection: user_connection
+        connections:
+            user_connection:
+                url: '%env(resolve:DATABASE_URL_USER)%'
+    orm:
+        default_entity_manager: user_em
+        entity_managers:
+            user_em:
+                connection: user_connection
+                mappings:
+                    Customer:
+                        is_bundle: false
+                        type: xml
+                        dir: '%kernel.project_dir%/src/User/Adapter/Database/ORM/Doctrine/Mapping'
+                        prefix: 'App\User\Domain\Model'
+                        alias: App\User\Domain\Model
+
+when@test:
+    doctrine:
+        dbal:
+            # "TEST_TOKEN" is typically set by ParaTest
+            dbname_suffix: '_test%env(default::TEST_TOKEN)%'
+
+when@prod:
+    doctrine:
+        orm:
+            auto_generate_proxy_classes: false
+            query_cache_driver:
+                type: pool
+                pool: doctrine.system_cache_pool
+            result_cache_driver:
+                type: pool
+                pool: doctrine.result_cache_pool
+
+    framework:
+        cache:
+            pools:
+                doctrine.result_cache_pool:
+                    adapter: cache.app
+                doctrine.system_cache_pool:
+                    adapter: cache.system

@@ -1,0 +1,17 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  App\User\:
+    resource: '../../../../../User/'
+    exclude:
+      - '../../../../../User/Domain/Model/'
+
+  App\User\Adapter\Framework\Http\Controller\:
+    resource: '../../../../../User/Adapter/Framework/Http/Controller/'
+    tags: [ 'controller.service_arguments' ]
+
+  App\User\Adapter\Framework\Listener\JsonTransformerExceptionListener:
+    tags:
+      - { name: kernel.event_listener, event: kernel.exception, method: onKernelException, priority: 100 }

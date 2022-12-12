@@ -1,0 +1,6 @@
+doctrine:
+  dbal:
+    default_connection: user_connection
+    connections:
+      user_connection:
+        url: '%env(resolve:DATABASE_URL_USER)%'
